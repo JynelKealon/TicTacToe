@@ -8,6 +8,8 @@ function Square({ value, onSquareClick }) {
   );
 }
 
+
+//allows you to use the board, and click on the squares
 function Board({ xIsNext, squares, onPlay }) {
   function handleClick(i) {
     if (calculateWinner(squares) || squares[i]) {
@@ -22,6 +24,7 @@ function Board({ xIsNext, squares, onPlay }) {
     onPlay(nextSquares);
   }
 
+  //let's you know who the winner of the game is 
   const winner = calculateWinner(squares);
   let status;
   if (winner) {
@@ -52,12 +55,14 @@ function Board({ xIsNext, squares, onPlay }) {
   );
 }
 
+//this is where you implement "time travel", basically seeing the history of the game and turns the history into react elements
 export default function Game() {
   const [history, setHistory] = useState([Array(9).fill(null)]);
   const [currentMove, setCurrentMove] = useState(0);
   const xIsNext = currentMove % 2 === 0;
   const currentSquares = history[currentMove];
 
+  //the functions below allow you to move either the X or O to another square
   function handlePlay(nextSquares) {
     const nextHistory = [...history.slice(0, currentMove + 1), nextSquares];
     setHistory(nextHistory);
